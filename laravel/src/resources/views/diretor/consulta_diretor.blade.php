@@ -4,16 +4,20 @@
 <table class="table table-striped">
     <thead class="thead-dark">
         <tr class='row'>
-            <th class="col-2 center">Código da Região</th>
-            <th class="col-8">Descrição da Região</th>
+            <th class="col-2 center">Código do Diretor</th>
+            <th class="col-2">Sigla do Estúdio</th>
+            <th class="col-2">Nome do Diretor</th>
+            <th class="col-2">Idade</th>
             <th class="col-2 center">Ações</th>
         </tr>
     </thead>
-    <tbody id="tabela">
-    @foreach($regioes as $regiao)
+    <tbody id="tabelaDiretor">
+    @foreach($diretores as $diretor)
         <tr class='row'>
-            <td class="col-2 center">{{ $regiao->IDRegiao }}</td>
-            <td class="col-8 center">{{ $regiao->DescricaoRegiao }}</td>
+            <td class="col-2 center">{{ $diretor->Dir_codigo }}</td>
+            <td class="col-2 center">{{ $diretor->Est_sigla }}</td>
+            <td class="col-2 center">{{ $diretor->Nome_dir }}</td>
+            <td class="col-2 center">{{ $diretor->Idade }}</td>
             <td class="col-2 center">
                 <a href="">
                     <i  class="btn btn-primary"><span class="glyphicon glyphicon-refresh">Update</span></i>

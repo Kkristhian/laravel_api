@@ -12,35 +12,50 @@
     <link rel="stylesheet" href="/css/app.css">
     <link rel="stylesheet" href="/css/main.css">
 
-    <title>TRABALHO WEB III</title>
+    <title>TRABALHO Final WEB III</title>
     
     </head>
     <body>
         <div style="background-color: #F5F5F5; ">
             <div class ="container">
                 <div class ="navbar-header">
-                    <a href = "/inicial/" class ="navbar-brand">TRABALHO WEB III</a>
+                    <a href = "/inicial/" class ="navbar-brand">TRABALHO FINAL WEB III</a>
                 </div>
                 
                 <div>
                     <ul class="nav nav-tabs">
                         
                         <li class="nav-item dropdown">
-                            <a class="nav-link dropdown-toggle" data-toggle="dropdown" href="#" role="button" aria-haspopup="true" aria-expanded="false">ORDENS_DETALHES</a>
+                            <a class="nav-link dropdown-toggle" data-toggle="dropdown" href="#" role="button" aria-haspopup="true" aria-expanded="false">FILME</a>
                             <div class="dropdown-menu">
-                                <a class="nav-link disabled" href="/inicial/ConsultaOrdem">CONSULTA ORDENS</a>
-                                <a class="nav-link disabled" href="/inicial/CadastroOrdem">CADASTRAR ORDENS</a>
+                                <a class="nav-link disabled" href="/inicial/ConsultaFilme">Consulta Filmes</a>
+                                <a class="nav-link disabled" href="/inicial/CadastrarFilme">Cadastrar Filme</a>
                             </div>
                         </li>
                         <li class="nav-item dropdown">
-                            <a class="nav-link dropdown-toggle" data-toggle="dropdown" href="#" role="button" aria-haspopup="true" aria-expanded="false">REGIÃO</a>
+                            <a class="nav-link dropdown-toggle" data-toggle="dropdown" href="#" role="button" aria-haspopup="true" aria-expanded="false">DIRETOR</a>
                             <div class="dropdown-menu">
-                                <a class="nav-link disabled" href="/inicial/ConsultaRegiao">CONSULTA REGIÃO</a>
-                                <a class="nav-link disabled" href="/inicial/CadastroRegiao">CADASTRAR REGIÃO</a>
+                                <a class="nav-link disabled" href="/inicial/ConsultaDiretor">Consulta Diretor</a>
+                                <a class="nav-link disabled" href="/inicial/CadastrarDiretor">Cadastrar Diretor</a>
+                            </div>
+                        </li>
+                        <li class="nav-item dropdown">
+                            <a class="nav-link dropdown-toggle" data-toggle="dropdown" href="#" role="button" aria-haspopup="true" aria-expanded="false">ESTUDIO</a>
+                            <div class="dropdown-menu">
+                                <a class="nav-link disabled" href="/inicial/ConsultaEstudio">Consulta Estudio</a>
+                                <a class="nav-link disabled" href="/inicial/CadastrarEstudio">Cadastrar Estudio</a>
+                            </div>
+                        </li>
+                        <li class="nav-item dropdown">
+                            <a class="nav-link dropdown-toggle" data-toggle="dropdown" href="#" role="button" aria-haspopup="true" aria-expanded="false">GENERO</a>
+                            <div class="dropdown-menu">
+                                <a class="nav-link disabled" href="/inicial/ConsultaGenero">Consulta Genero</a>
+                                <a class="nav-link disabled" href="/inicial/CadastrarGenero">Cadastrar Genero</a>
                             </div>
                         </li>
                     </ul>
                 </div>
+                
             </div>
         </div>
 

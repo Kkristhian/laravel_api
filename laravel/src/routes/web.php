@@ -15,9 +15,16 @@ Route::get('/', function () {
     return view('inicial');
 });
 
-Route::get('/inicial', 'RegiaoController@loadInicial');
+Route::get('/inicial', 'FilmeController@loadInicial');
 
-Route::get('/inicial/ConsultaRegiao', 'RegiaoController@loadConsultaRegiao');
-Route::get('/inicial/CadastroRegiao', 'RegiaoController@loadCadastraRegiao');
-Route::get('/inicial/ConsultaOrdem', 'Ordens_detalhesController@loadConsultaOrdem');
-Route::get('/inicial/CadastroOrdem', 'Ordens_detalhesController@loadCadastraOrdem');
+Route::get('/inicial/ConsultaFilme', 'FilmeController@loadConsultarFilme');
+Route::get('/inicial/CadastroFilme', 'FilmeController@loadCadastrarFilme');
+
+Route::get('/inicial/ConsultaGenero', 'GeneroController@loadConsultarGenero');
+Route::get('/inicial/CadastroGenero', 'GeneroController@loadCadastrarGenero');
+
+Route::get('/inicial/ConsultaEstudio', 'EstudioController@loadConsultarEstudio');
+Route::get('/inicial/CadastroEstudio', 'EstudioController@loadCadastrarEstudio');
+
+Route::get('/inicial/ConsultaDiretor', 'DiretorController@loadConsultarDiretor');
+Route::get('/inicial/CadastroDiretor', 'DiretorController@loadCadastrarDiretor');

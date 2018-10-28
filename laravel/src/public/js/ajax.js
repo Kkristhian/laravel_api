@@ -1,15 +1,20 @@
-window.onload = atualizaTabela;
-window.onload = atualizaTabelaOrdem;
+window.onload = atualizarTabelaFilme;
+window.onload = atualizarTabelaDiretor;
+window.onload = atualizarTabelaEstudio;
+window.onload = atualizarTabelaGenero;
 
-function deleta(iCodigo){
+
+// ------------------------------------------ FILME ----------------------------------------------------
+
+function deletarFilme(iId){
     try {
         $.ajax({
             type: "delete",
             async: false,
             dataType: "json",
-            url: "http://localhost:41121/api/regiao/" + iCodigo,
+            url: "http://localhost:41121/api/filme/" + iId,
             success: function(oRetorno){
-                atualizaTabela();
+                atualizarTabelaFilme();
                 console.log(oRetorno);
             }
         });
@@ -19,33 +24,38 @@ function deleta(iCodigo){
     }
 }
 
-function atualizaTabela(){
+function atualizarTabelaFilme(){
     try {
         $.ajax({
             type: "get",
             async: false,
             dataType: "json",
-            url: "http://localhost:41121/api/regiao",
+            url: "http://localhost:41121/api/filme",
             success: function(oRetorno){
                 console.log(oRetorno);
                 let sHtml = "";
 
                 oRetorno.forEach(element => {
                     sHtml += "<tr class='row'>";
-                    sHtml += "<td class='col-2 center'>" + element.IDRegiao + "</td>";
-                    sHtml += "<td class='col-8'>" + element.DescricaoRegiao + "</td>";
+                    sHtml += "<td class='col-2 center'>" + element.Id + "</td>";
+                    sHtml += "<td class='col-2'>" + element.Nome + "</td>";
+                    sHtml += "<td class='col-2'>" + element.Ano + "</td>";
+                    sHtml += "<td class='col-2'>" + element.Fx_etaria + "</td>";
+                    sHtml += "<td class='col-2'>" + element.Gen_codigo + "</td>";
+                    sHtml += "<td class='col-2'>" + element.Dir_codigo + "</td>";
+                    sHtml += "<td class='col-2'>" + element.Est_sigla + "</td>";
                     sHtml += "<td class='col-2 center'>";
                     sHtml += "<a href=''>";
                     sHtml += "<i  class=\"btn btn-primary\"><span class=\"glyphicon glyphicon-refresh\">Update</span></i>";
                     sHtml += "</a>&nbsp;&nbsp;";
-                    sHtml += "<a onclick='deleta(" + element.IDRegiao + ")'>";
+                    sHtml += "<a onclick='deleta(" + element.Id + ")'>";
                     sHtml += "<i class=\"btn btn-danger\"><span class=\"glyphicon glyphicon-remove\">Delete</span></i>";
                     sHtml += "</a>";
                     sHtml += "</td>";
                     sHtml += "</tr>";
                 });
 
-                $("#tabela").html(sHtml);
+                $("#tabelaFilme").html(sHtml);
             }
         });
     } catch(oErro){
@@ -54,11 +64,16 @@ function atualizaTabela(){
     }
 }
 
-$("#cadastrar").on("click", function(event){
+$("#cadastrarFilme").on("click", function(event){
     event.preventDefault();
 
-    let iCodigo = $("#IDRegiao").val();
-    let sDescricao = $("#DescricaoRegiao").val();
+        let iId = $("#Id").val();
+        let sNome = $("#Nome").val();
+        let iAno = $("#Ano").val();
+        let iFx_etaria = $("#Fx_etaria").val();
+        let iGen_codigo = $("#Gen_codigo").val();
+        let iDir_codigo = $("#Dir_codigo").val();
+        let sEst_sigla = $("#Est_sigla").val();
 
     try {
         $.ajax({
@@ -66,13 +81,18 @@ $("#cadastrar").on("click", function(event){
             async: false,
             dataType: "json",
             data: {
-                IDRegiao: iCodigo,
-                DescricaoRegiao: sDescricao
+                Id: iId,
+                Nome: sNome,
+                Ano: iAno,
+                Fx_etaria: iFx_etaria,
+                Gen_codigo: iGen_codigo,
+                Dir_codigo: iDir_codigo,
+                Est_sigla: sEst_sigla
             },
-            // url: "http://localhost:41121/api/regiao/" + id,
-            url: "http://localhost:41121/api/regiao",
+            // url: "http://localhost:41121/api/filme/" + id,
+            url: "http://localhost:41121/api/filme",
             success: function(oRetorno){
-                window.location = "http://localhost:41121/inicial/ConsultaRegiao";
+                window.location = "http://localhost:41121/inicial/ConsultarFilme";
             }
         });
     } catch(oErro){
@@ -80,40 +100,52 @@ $("#cadastrar").on("click", function(event){
         alert("Erro ao Cadastrar");
     }
 
-    // $("#atualizar").on("click", function(id){
-    //     event.preventDefault();
+// $("#atualizarFilme").on("click", function(id){
+//         event.preventDefault();
     
-    //     let sDescricao = $("#DescricaoRegiao").val();
-    
-    //     try {
-    //         $.ajax({
-    //             type: "post",
-    //             async: false,
-    //             dataType: "json",
-    //             data: {
-    //                 DescricaoRegiao: sDescricao
-    //             },
-    //             url: "http://localhost:41121/api/regiao/" + id,
-    //             success: function(oRetorno){
-    //                 window.location = "http://localhost:41121/inicial/ConsultaRegiao";
-    //             }
-    //         });
-    //     } catch(oErro){
-    //         console.log(oErro);
-    //         alert("Erro ao excluir");
-    //     }
+//             let iId = $("#Id").val();
+//             let sNome = $("#Nome").val();
+//             let iAno = $("#Ano").val();
+//             let iFx_etaria = $("#Fx_etaria").val();
+//             let iGen_codigo = $("#Gen_codigo").val();
+//             let iDir_codigo = $("#Dir_codigo").val();
+//             let sEst_sigla = $("#Est_sigla").val();
+                
+//         try {
+//             $.ajax({
+//                 type: "post",
+//                 async: false,
+//                 dataType: "json",
+//                 data: {
+                    //     Id: iId,
+                    //     Nome: sNome,
+                    //     Ano: iAno,
+                    //     Fx_etaria: iFx_etaria,
+                    //     Gen_codigo: iGen_codigo,
+                    //     Dir_codigo: iDir_codigo,
+                    //     Est_sigla: sEst_sigla
+                    // },
+//                 url: "http://localhost:41121/api/filme/" + id,
+//                 success: function(oRetorno){
+//                     window.location = "http://localhost:41121/inicial/AtualizarFilme";
+//                 }
+//             });
+//         } catch(oErro){
+//             console.log(oErro);
+//             alert("Erro ao atualizar");
+//         }
 
-// --------------------------------------- ORDEM ---------------------------------
+// --------------------------------------- DIRETOR -------------------------------------------------------
 
-function deletaOrdem(iCodigo){
+function deletarDiretor(iDir_codigo){
     try {
         $.ajax({
             type: "delete",
             async: false,
             dataType: "json",
-            url: "http://localhost:41121/api/ordens_detalhes/" + iCodigo,
+            url: "http://localhost:41121/api/diretor/" + iDir_codigo,
             success: function(oRetorno){
-                atualizaTabelaOrdem();
+                atualizarTabelaDiretor();
                 console.log(oRetorno);
             }
         });
@@ -123,56 +155,51 @@ function deletaOrdem(iCodigo){
     }
 }
 
-
-
-    function atualizaTabelaOrdem(){
+function atualizarTabelaDiretor(){
         try {
             $.ajax({
                 type: "get",
                 async: false,
                 dataType: "json",
-                url: "http://localhost:41121/api/ordens_detalhes",
+                url: "http://localhost:41121/api/diretor",
                 success: function(oRetorno){
                     console.log(oRetorno);
                     let sHtml = "";
     
                     oRetorno.forEach(element => {
                         sHtml += "<tr class='row'>";
-                        sHtml += "<td class='col-2 center'>" + element.IDOrdem + "</td>";
-                        sHtml += "<td class='col-2 center'>" + element.IDProduto + "</td>";
-                        sHtml += "<td class='col-2 center'>" + element.PrecoUnitario + "</td>";
-                        sHtml += "<td class='col-2 center'>" + element.Quantidade + "</td>";
-                        sHtml += "<td class='col-2 center'>" + element.Desconto + "</td>";
+                        sHtml += "<td class='col-2 center'>" + element.Dir_codigo + "</td>";
+                        sHtml += "<td class='col-2 center'>" + element.Est_sigla + "</td>";
+                        sHtml += "<td class='col-2 center'>" + element.Nome_dir + "</td>";
+                        sHtml += "<td class='col-2 center'>" + element.idade + "</td>";
                         sHtml += "<td class='col-2 center'>";
                         sHtml += "<a href=''>";
                         sHtml += "<i  class=\"btn btn-primary\"><span class=\"glyphicon glyphicon-refresh\">Update</span></i>";
                         sHtml += "</a>&nbsp;&nbsp;";
-                        sHtml += "<a onclick='deleta(" + element.IDOrdem + ")'>";
+                        sHtml += "<a onclick='deleta(" + element.Dir_codigo + ")'>";
                         sHtml += "<i class=\"btn btn-danger\"><span class=\"glyphicon glyphicon-remove\">Delete</span></i>";
                         sHtml += "</a>";
                         sHtml += "</td>";
                         sHtml += "</tr>";
                     });
     
-                    $("#tabelaOrdem").html(sHtml);
+                    $("#tabelaDiretor").html(sHtml);
                 }
             });
         } catch(oErro){
             console.log(oErro);
-            alert("Erro ao Excluir");
+            alert("Erro ao Atualizar");
         }
     }
 
     
-    $("#cadastrarOrdem").on("click", function(event){
+$("#cadastrarDiretor").on("click", function(event){
         event.preventDefault();
     
-        let iCodigo = $("#IDOrdem").val();
-        let sIDProduto = $("#IDProduto").val();
-        let sPrecoUnitario = $("#PrecoUnitario").val();
-        let sQuantidade = $("#Quantidade").val();
-        let sDesconto = $("#Desconto").val();
-        
+        let iDir_codigo = $("#Dir_codigo").val();
+        let sEst_sigla = $("#est_sigla").val();
+        let sNome = $("#Nome").val();
+        let iIdade = $("#Idade").val();        
     
         try {
             $.ajax({
@@ -180,26 +207,29 @@ function deletaOrdem(iCodigo){
                 async: false,
                 dataType: "json",
                 data: {
-                    IDProduto: sIDProduto,
-                    PrecoUnitario: sPrecoUnitario,
-                    Quantidade: sQuantidade,
-                    Desconto: sDesconto
+                    Dir_codigo: iDir_codigo,
+                    Est_sigla: sEst_sigla,
+                    Nome: sNome,
+                    Idade: iIdade
                 },
-                url: "http://localhost:41121/api/ordens_detalhes",
+                url: "http://localhost:41121/api/diretor",
                 success: function(oRetorno){
-                    window.location = "http://localhost:41121/inicial/ConsultaOrdem";
+                    window.location = "http://localhost:41121/inicial/ConsultarDiretor";
                 }
             });
         } catch(oErro){
             console.log(oErro);
-            alert("Erro ao excluir");
+            alert("Erro ao cadastrar");
         }
         
         
-        // $("#atualizarOrdem").on("click", function(id){
+// $("#atualizarDiretor").on("click", function(id){
             //     event.preventDefault();
             
-            //     let sDescricao = $("#DescricaoRegiao").val();
+            //      let iDir_codigo = $("#Dir_codigo").val();
+            //      let sEst_sigla = $("#est_sigla").val();
+            //      let sNome = $("#Nome").val();
+            //      let iIdade = $("#Idade").val();  
             
             //     try {
             //         $.ajax({
@@ -207,15 +237,231 @@ function deletaOrdem(iCodigo){
             //             async: false,
             //             dataType: "json",
             //             data: {
-            //                 DescricaoRegiao: sDescricao
-            //             },
-            //             url: "http://localhost:41121/api/regiao/" + id,
+                        //     Dir_codigo: iDir_codigo,
+                        //     Est_sigla: sEst_sigla,
+                        //     Nome: sNome,
+                        //     Idade: iIdade
+                        // },
+            //             url: "http://localhost:41121/api/diretor/" + id,
             //             success: function(oRetorno){
-            //                 window.location = "http://localhost:41121/inicial/ConsultaRegiao";
+            //                 window.location = "http://localhost:41121/inicial/AtualizarDiretor";
             //             }
             //         });
             //     } catch(oErro){
             //         console.log(oErro);
-            //         alert("Erro ao excluir");
+            //         alert("Erro ao atualizar");
+            //     }
+
+// --------------------------------------- ESTUDIO -----------------------------------------------------
+
+function deletarEstudio(sEst_sigla){
+    try {
+        $.ajax({
+            type: "delete",
+            async: false,
+            dataType: "json",
+            url: "http://localhost:41121/api/estudio/" + sEst_sigla,
+            success: function(oRetorno){
+                atualizarTabelaEstudio();
+                console.log(oRetorno);
+            }
+        });
+    } catch(oErro){
+        console.log(oErro);
+        alert("Erro ao Deletar");
+    }
+}
+
+function atualizarTabelaEstudio(){
+        try {
+            $.ajax({
+                type: "get",
+                async: false,
+                dataType: "json",
+                url: "http://localhost:41121/api/estudio",
+                success: function(oRetorno){
+                    console.log(oRetorno);
+                    let sHtml = "";
+    
+                    oRetorno.forEach(element => {
+                        sHtml += "<tr class='row'>";
+                        sHtml += "<td class='col-2 center'>" + element.Est_sigla + "</td>";
+                        sHtml += "<td class='col-2 center'>" + element.Est_nome + "</td>";
+                        sHtml += "<td class='col-2 center'>";
+                        sHtml += "<a href=''>";
+                        sHtml += "<i  class=\"btn btn-primary\"><span class=\"glyphicon glyphicon-refresh\">Update</span></i>";
+                        sHtml += "</a>&nbsp;&nbsp;";
+                        sHtml += "<a onclick='deleta(" + element.Est_sigla + ")'>";
+                        sHtml += "<i class=\"btn btn-danger\"><span class=\"glyphicon glyphicon-remove\">Delete</span></i>";
+                        sHtml += "</a>";
+                        sHtml += "</td>";
+                        sHtml += "</tr>";
+                    });
+    
+                    $("#tabelaEstudio").html(sHtml);
+                }
+            });
+        } catch(oErro){
+            console.log(oErro);
+            alert("Erro ao Atualizar");
+        }
+    }
+
+    
+$("#cadastrarEstudio").on("click", function(event){
+        event.preventDefault();
+    
+        let sEst_sigla = $("#Est_sigla").val();
+        let sEst_nome = $("#Est_nome").val();      
+    
+        try {
+            $.ajax({
+                type: "post",
+                async: false,
+                dataType: "json",
+                data: {
+                    Est_sigla: sEst_sigla,
+                    Est_nome: sEst_nome
+                },
+                url: "http://localhost:41121/api/estudio",
+                success: function(oRetorno){
+                    window.location = "http://localhost:41121/inicial/ConsultarEstudio";
+                }
+            });
+        } catch(oErro){
+            console.log(oErro);
+            alert("Erro ao cadastrar");
+        }
+        
+        
+// $("#atualizarEstudio").on("click", function(id){
+            //     event.preventDefault();
+            
+            //      llet sEst_sigla = $("#Est_sigla").val();
+            //      let sEst_nome = $("#Est_nome").val(); 
+            
+            //     try {
+            //         $.ajax({
+            //             type: "post",
+            //             async: false,
+            //             dataType: "json",
+            //             data: {
+            //                  Est_sigla: sEst_sigla,
+            //                  Est_nome: sEst_nome
+            //              },
+            //             url: "http://localhost:41121/api/estudio/" + id,
+            //             success: function(oRetorno){
+            //                 window.location = "http://localhost:41121/inicial/AtualizarEstudio";
+            //             }
+            //         });
+            //     } catch(oErro){
+            //         console.log(oErro);
+            //         alert("Erro ao atualizar");
+            //     }
+
+// --------------------------------------- GENERO -----------------------------------------------------
+
+function deletarGenero(iGen_codigo){
+    try {
+        $.ajax({
+            type: "delete",
+            async: false,
+            dataType: "json",
+            url: "http://localhost:41121/api/genero/" + iGen_codigo,
+            success: function(oRetorno){
+                atualizarTabelaGenero();
+                console.log(oRetorno);
+            }
+        });
+    } catch(oErro){
+        console.log(oErro);
+        alert("Erro ao Deletar");
+    }
+}
+
+function atualizarTabelaGenero(){
+        try {
+            $.ajax({
+                type: "get",
+                async: false,
+                dataType: "json",
+                url: "http://localhost:41121/api/genero",
+                success: function(oRetorno){
+                    console.log(oRetorno);
+                    let sHtml = "";
+    
+                    oRetorno.forEach(element => {
+                        sHtml += "<tr class='row'>";
+                        sHtml += "<td class='col-2 center'>" + element.Gen_codigo + "</td>";
+                        sHtml += "<td class='col-2 center'>" + element.descricao + "</td>";
+                        sHtml += "<td class='col-2 center'>";
+                        sHtml += "<a href=''>";
+                        sHtml += "<i  class=\"btn btn-primary\"><span class=\"glyphicon glyphicon-refresh\">Update</span></i>";
+                        sHtml += "</a>&nbsp;&nbsp;";
+                        sHtml += "<a onclick='deleta(" + element.Gen_codigo + ")'>";
+                        sHtml += "<i class=\"btn btn-danger\"><span class=\"glyphicon glyphicon-remove\">Delete</span></i>";
+                        sHtml += "</a>";
+                        sHtml += "</td>";
+                        sHtml += "</tr>";
+                    });
+    
+                    $("#tabelaEstudio").html(sHtml);
+                }
+            });
+        } catch(oErro){
+            console.log(oErro);
+            alert("Erro ao Atualizar");
+        }
+    }
+
+    
+$("#cadastrarGenero").on("click", function(event){
+        event.preventDefault();
+    
+        let iGen_codigo = $("#Gen_codigo").val();
+        let sDescricao = $("#Descricao").val();      
+    
+        try {
+            $.ajax({
+                type: "post",
+                async: false,
+                dataType: "json",
+                data: {
+                    Gen_codigo: iGen_codigo,
+                    Descricao: sDescricao
+                },
+                url: "http://localhost:41121/api/genero",
+                success: function(oRetorno){
+                    window.location = "http://localhost:41121/inicial/ConsultarGenero";
+                }
+            });
+        } catch(oErro){
+            console.log(oErro);
+            alert("Erro ao cadastrar");
+        }
+        
+        
+// $("#atualizarGenero").on("click", function(id){
+            //     event.preventDefault();
+            
+            //   let iGen_codigo = $("#Gen_codigo").val();
+            //   let sDescricao = $("#Descricao").val();      
+            //     try {
+            //         $.ajax({
+            //             type: "post",
+            //             async: false,
+            //             dataType: "json",
+            //             data: {
+            //                  Gen_codigo: iGen_codigo,
+            //                  Descricao: sDescricao
+            //              },
+            //             url: "http://localhost:41121/api/genero/" + id,
+            //             success: function(oRetorno){
+            //                 window.location = "http://localhost:41121/inicial/AtualizarGenero";
+            //             }
+            //         });
+            //     } catch(oErro){
+            //         console.log(oErro);
+            //         alert("Erro ao atualizar");
             //     }
     )};
