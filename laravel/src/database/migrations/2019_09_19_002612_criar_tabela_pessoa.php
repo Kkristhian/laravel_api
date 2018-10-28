@@ -4,7 +4,7 @@ use Illuminate\Support\Facades\Schema;
 use Illuminate\Database\Schema\Blueprint;
 use Illuminate\Database\Migrations\Migration;
 
-class CriarTabelaPessoa extends Migration
+class CriarTabelaFime extends Migration
 {
     /**
      * Run the migrations.
@@ -13,9 +13,13 @@ class CriarTabelaPessoa extends Migration
      */
     public function up()
     {
-        Schema::create('pessoa', function(Blueprint $tabela) {
+        Schema::create('filme', function(Blueprint $tabela) {
             $tabela->increments('id');
-            $tabela->string('primeiro_nome', 100);
+            $tabela->string('nome_filme', 100);
+            $tabela->integer('ano_filme', 100);
+            $tabela->string('nome_diretor', 100);
+            $tabela->string('nome_estudio', 50);
+            $tabela->integer('faixa_etaria', 10);
             $tabela->timestamps();
         });
     }
